@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cab Services for College Students</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+    }
+    
+    h1 {
+      margin: 0;
+    }
+    
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+    
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    section {
+      margin: 20px;
+    }
+    
+    h2 {
+      color: #333;
+    }
+    
+    p {
+      margin-bottom: 10px;
+    }
+    
+    .image-container {
+      text-align: center;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cab Services for College Students</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <section>
+    <h2>Welcome to Our Cab Service</h2>
+    <p>We provide reliable and affordable cab services exclusively for college students.</p>
+    
+    <h3>Our Services</h3>
+    <ul>
+      <li>Quick and safe transportation</li>
+      <li>24/7 availability</li>
+      <li>Experienced and friendly drivers</li>
+    </ul>
+    
+    <div class="image-container">
+      <img src="cab-image.jpg" alt="Cab Image">
+    </div>
+    
+    <h4>Book a Cab Now!</h4>
+    <p>Click the button below to book a cab:</p>
+    <a href="#" class="btn">Book Now</a>
+  </section>
+  
+  <footer>
+    <p>&copy; 2023 Cab Services for College Students. All rights reserved.</p>
+  </footer>
+  <script>
+    // Mock user data (replace with a real authentication system)
+    const users = [
+      { username: 'Diksha', password: 'password123' },
+      { username: 'Rupali', password: 'password321' }
+    ];
+  
+    // Function to handle login
+    function handleLogin() {
+      const usernameInput = prompt('Enter your username:');
+      const passwordInput = prompt('Enter your password:');
+  
+      // Check if the entered username and password match any user
+      const user = users.find(u => u.username === usernameInput && u.password === passwordInput);
+  
+      if (user) {
+        alert(`Welcome, ${usernameInput}! You are now logged in.`);
+      } else {
+        alert('Invalid username or password. Please try again.');
+      }
+    }
+  
+    // Add an event listener to the "Book Now" button to trigger the login function
+    document.querySelector('.btn').addEventListener('click', handleLogin);
+    </script>
+ </body>
+ </html>   
+  
