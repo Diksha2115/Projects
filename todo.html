@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        li.completed {
+            background-color: #c0e4c0;
+            text-decoration: line-through;
+        }
+        input[type="text"], input[type="date"] {
+            padding: 8px;
+            margin: 5px;
+            width: 60%;
+        }
+        button {
+            padding: 8px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .delete {
+            background-color: #ff6666;
+            color: #fff;
+        }
+        .priority {
+            background-color: #ffcc66;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List App</h1>
+    
+    <div>
+        <label for="taskTitle">Task Title:</label>
+        <input type="text" id="taskTitle" placeholder="Enter task title">
+        
+        <label for="taskDescription">Description:</label>
+        <input type="text" id="taskDescription" placeholder="Enter task description">
+
+        <label for="dueDate">Due Date:</label>
+        <input type="date" id="dueDate">
+        
+        <label for="priority">Priority:</label>
+        <select id="priority">
+            <option value="normal">Normal</option>
+            <option value="high">High</option>
+        </select>
+
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        // Function to add a new task
+        function addTask() {
+            const title = document.getElementById("taskTitle").value;
+            const description = document.getElementById("taskDescription").value;
+            const dueDate = document.getElementById("dueDate").value;
+            const priority = document.getElementById("priority").value;
+
+            if (title.trim() === "") {
+                alert("Task title cannot be empty!");
+                return;
+            }
+
+            const task = {
+                title,
+                description,
+                dueDate,
+                priority,
+                completed: false
+            };
+
+            tasks.push(task);
+            renderTasks();
+            clearInputFields();
+            saveTasksToLocal();
+        }
+
+        // Function to render tasks on the UI
+        function renderTasks() {
+            const taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+
+            tasks.forEach((task, index) => {
+                const listItem = document.createElement("li");
+                listItem.classList.add(task.completed ? "completed" : "active");
+
+                listItem.innerHTML = `
+                    <span>${task.title}</span>
+                    <span>
+                        <button onclick="toggleCompletion(${index})">${task.completed ? "Activate" : "Complete"}</button>
+                        <button onclick="editTask(${index})">Edit</button>
+                        <button onclick="deleteTask(${index})" class="delete">Delete</button>
+                    </span>
+                `;
+
+                taskList.appendChild(listItem);
+            });
+        }
+
+        // Function to toggle task completion
+        function toggleCompletion(index) {
+            tasks[index].completed = !tasks[index].completed;
+            renderTasks();
+            saveTasksToLocal();
+        }
+
+        // Function to edit a task
+        function editTask(index) {
+            const newTitle = prompt("Enter new title:", tasks[index].title);
+            if (newTitle !== null) {
+                tasks[index].title = newTitle;
+                renderTasks();
+                saveTasksToLocal();
+            }
+        }
+
+        // Function to delete a task
+        function deleteTask(index) {
+            const confirmDelete = confirm("Are you sure you want to delete this task?");
+            if (confirmDelete) {
+                tasks.splice(index, 1);
+                renderTasks();
+                saveTasksToLocal();
+            }
+        }
+
+        // Function to clear input fields
+        function clearInputFields() {
+            document.getElementById("taskTitle").value = "";
+            document.getElementById("taskDescription").value = "";
+            document.getElementById("dueDate").value = "";
+            document.getElementById("priority").value = "normal";
+        }
+
+        // Function to save tasks to local storage
+        function saveTasksToLocal() {
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        // Function to load tasks from local storage
+        function loadTasksFromLocal() {
+            const storedTasks = localStorage.getItem("tasks");
+            return storedTasks ? JSON.parse(storedTasks) : [];
+        }
+
+        // Initial tasks array, load tasks from local storage
+        let tasks = loadTasksFromLocal();
+        renderTasks();
+    </script>
+</body>
+</html>
